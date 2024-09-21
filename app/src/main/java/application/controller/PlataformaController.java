@@ -17,7 +17,7 @@ import application.repository.PlataformaRepository;
 @RequestMapping("/plataforma")
 public class PlataformaController {
     @Autowired
-    private PlataformaRepository plataformaRepository;
+    private PlataformaRepository plataformaRepo;
 
     @RequestMapping("/list")
     public String list(Model ui) {
@@ -54,4 +54,42 @@ public class PlataformaController {
         return "redirect:/plataforma/list";
     }
 
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+public String update(
+    @RequestParam("id") long id,
+    @RequestParam("nome") String nome ) {
+    
+        Optional<Plataforma> plataforma = plataformaRepo.findById(id);
+        
+        if (plataforma.isPresent()) {
+            plataforma.get().setNome(nome);
+            
+            plataformaRepo.save(plataforma.get());
+    }
+    
+    return "redirect:/plataforma/list"; 
+}
+
+@RequestMapping("/delete")
+public String delete(
+    @RequestParam("id") long id,
+    Model ui) {
+        
+    Optional<Plataforma> plataforma = plataformaRepo.findById(id);
+    
+    if (plataforma.isPresent()) {
+        ui.addAttribute("plataforma", plataforma.get());
+        return "plataforma/delete";
+    }
+    
+    return "redirect:/plataforma/list";
+}
+
+@RequestMapping(value = "/delete", method = RequestMethod.POST)
+public String delete(@RequestParam("id") long id) {
+    plataformaRepo.deleteById(id);
+    
+    return "redirect:/plataforma/list";
+}
+}
 
