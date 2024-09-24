@@ -1,13 +1,12 @@
 package application.controller;
 
-import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import application.model.Plataforma;
@@ -42,11 +41,12 @@ public class PlataformaController {
     
     @RequestMapping("/update")
     public String update(
-        @RequestParam("id") long id, Model ui) {
+        @RequestParam("id") long id, 
+        Model ui) {
 
         Optional<Plataforma> plataforma = plataformaRepo.findById(id);
 
-        if (plataforma.isPresent()) {
+        if(plataforma.isPresent()) {
             ui.addAttribute("plataforma", plataforma.get());
             return "plataforma/update";
         }
@@ -54,42 +54,43 @@ public class PlataformaController {
         return "redirect:/plataforma/list";
     }
 
-    @RequestMapping(value = "/update", method = RequestMethod.POST)
-public String update(
-    @RequestParam("id") long id,
-    @RequestParam("nome") String nome ) {
-    
+    @RequestMapping(value = "/update", method = RequestMethod.POST) 
+    public String update(
+        @RequestParam("id") long id,
+        @RequestParam("nome") String nome ) {
+            
         Optional<Plataforma> plataforma = plataformaRepo.findById(id);
         
         if (plataforma.isPresent()) {
-            plataforma.get().setNome(nome);
+             plataforma.get().setNome(nome);
+             
+             plataformaRepo.save(plataforma.get());
+        }
+    
+        return "redirect:/plataforma/list"; 
+}
+
+    @RequestMapping("/delete")
+    public String delete(
+        @RequestParam("id") long id,
+        Model ui) {
             
-            plataformaRepo.save(plataforma.get());
-    }
-    
-    return "redirect:/plataforma/list"; 
-}
-
-@RequestMapping("/delete")
-public String delete(
-    @RequestParam("id") long id,
-    Model ui) {
+        Optional<Plataforma> plataforma = plataformaRepo.findById(id);
         
-    Optional<Plataforma> plataforma = plataformaRepo.findById(id);
-    
-    if (plataforma.isPresent()) {
-        ui.addAttribute("plataforma", plataforma.get());
-        return "plataforma/delete";
-    }
-    
-    return "redirect:/plataforma/list";
+        if (plataforma.isPresent()) {
+             ui.addAttribute("plataforma", plataforma.get());
+             
+             return "plataforma/delete";
+        }
+        
+        return "redirect:/plataforma/list";
 }
 
-@RequestMapping(value = "/delete", method = RequestMethod.POST)
-public String delete(@RequestParam("id") long id) {
-    plataformaRepo.deleteById(id);
-    
-    return "redirect:/plataforma/list";
-}
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    public String delete(@RequestParam("id") long id) {
+        plataformaRepo.deleteById(id);
+        
+        return "redirect:/plataforma/list";
+    }
 }
 

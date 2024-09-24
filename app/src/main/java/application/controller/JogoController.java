@@ -81,7 +81,7 @@ public class JogoController {
         @RequestParam("categoria") long idCategoria,
         @RequestParam("plataformas") long[] idsPlataformas ) {
  
-        Optional<Jogo> jogo = jogoRepo.findById(id);
+        Optional<Jogo> jogo =jogoRepo.findById(id);
  
         if(jogo.isPresent()) {
             jogo.get().setTitulo(titulo);
@@ -104,7 +104,7 @@ public class JogoController {
         @RequestParam("id") long id,
         Model ui) {
        
-        Optional<Jogo> jogo =jogoRepo.findById(id);
+        Optional<Jogo> jogo = jogoRepo.findById(id);
  
         if(jogo.isPresent()) {
             ui.addAttribute("jogo", jogo.get());

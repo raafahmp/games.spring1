@@ -19,8 +19,8 @@ public class CategoriaController {
     private CategoriaRepository categoriaRepo;
 
     @RequestMapping("/list")
-    public String list(model ui) {
-        ui.addAtribute("categorias", categoriaRepo.findAll());
+    public String list(Model ui) {
+        ui.addAttribute("categorias", categoriaRepo.findAll());
         return "categoria/list";
     }
     
@@ -29,9 +29,9 @@ public class CategoriaController {
             return "categoria/insert";
     }
 
-    @RequestMapping(Value = "/insert", method = RequestMapping.POST)
-    public Strin insert (@RequestParam("nome") String nome) {
-        categoria categoria = new Categoria();
+    @RequestMapping(value = "/insert", method = RequestMethod.POST)
+    public String insert (@RequestParam("nome") String nome) {
+        Categoria categoria = new Categoria();
         categoria.setNome(nome);
 
         categoriaRepo.save(categoria);
@@ -44,10 +44,10 @@ public class CategoriaController {
         @RequestParam("id") long id,
         Model ui) {
 
-        optional<categoria> categoria = categoriaRepo.findById(id);
+        Optional<Categoria> categoria = categoriaRepo.findById(id);
 
         if(categoria.isPresent()) {
-            ui.addAtribute("categoria", categoria.get());
+            ui.addAttribute("categoria", categoria.get());
             return "categoria/update";
         }
 
@@ -80,7 +80,7 @@ public class CategoriaController {
         Optional<Categoria> categoria = categoriaRepo.findById(id);
 
         if(categoria.isPresent()) {
-            ui.addAtribute("categoria", categoria.get());
+            ui.addAttribute("categoria", categoria.get());
             return "categoria/delete";
 
         }
@@ -89,7 +89,7 @@ public class CategoriaController {
 
      }
      
-     @RequestMapping(valeu = "/delete", method = RequestMethod.POST)
+     @RequestMapping(value = "/delete", method = RequestMethod.POST)
      public String delete (@RequestParam("id") long id) {
         categoriaRepo.deleteById(id);
         

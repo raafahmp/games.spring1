@@ -8,19 +8,19 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
-@Entify
-@Table(name = "plataformas" )
-public class categoria {
-    @Inherited
-    @GeneratedValue(strategy = GenerationType.IDENTIFY)
+@Entity
+@Table(name = "categorias" )
+public class Categoria {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Column(unique = true, nullable = false)
     private String nome;
 
-    @ManyToMany(mapped8y = "plataformas")
+    @OneToMany(mappedBy = "categoria")
     private Set<Jogo> jogos = new HashSet<>();
 
     public long getId() {

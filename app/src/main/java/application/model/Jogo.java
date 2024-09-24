@@ -14,11 +14,11 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
-@Entify
-@Table(name = "jogo" )
-public class categoria {
+@Entity
+@Table(name = "jogos" )
+public class Jogo {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTIFY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Column(nullable = true)
     private String titulo;
@@ -29,9 +29,9 @@ public class categoria {
 
     @ManyToMany
     @JoinTable(
-        name = "jogo_possuem_plataformas",
-        joinColumns = @JoinColumn(name = "id_jogo"),
-        inverseJoinColumns = @JoinColumn(name = "id_plataofrma"))
+        name = "jogos_possuem_plataformas",
+        joinColumns = @JoinColumn(name = "id_jogos"),
+        inverseJoinColumns = @JoinColumn(name = "id_plataformas"))
     private Set<Plataforma> plataformas = new HashSet<>();
 
     public long getId() {
@@ -58,12 +58,11 @@ public class categoria {
         this.categoria = categoria;
     }
 
-    public Set<Plataforma> getPlataforma() {
-        return plataforma;
+    public Set<Plataforma> getPlataformas() {
+        return plataformas;
     }
 
-    public void setPlataformas(Set<Plataforma> plataforma) {
+    public void setPlataformas(Set<Plataforma> plataformas) {
         this.plataformas = plataformas;
     }
-    
 }

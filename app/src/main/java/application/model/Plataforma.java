@@ -1,6 +1,5 @@
 package application.model;
 
-import java.lang.annotation.Inherited;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -9,19 +8,19 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneTomany;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
-@Entify
-@Table(name = "categorias" )
-public class categoria {
-    @Inherited
-    @GeneratedValue(strategy = GenerationType.IDENTIFY)
+@Entity
+@Table(name = "plataformas" )
+public class Plataforma {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Column(unique = true, nullable = false)
     private String nome;
 
-    @OneTomany(mapped8y = "categoria")
+    @ManyToMany(mappedBy = "plataformas")
     private Set<Jogo> jogos = new HashSet<>();
 
     public long getId() {
