@@ -1,5 +1,5 @@
-<@page language="java" contenType="text/html; charset=UF-8" PageEncoding="UTF-8" %>
-<@taglib uri="jakarta.tags.core" prefix="c" %>
+<%@page language="java" contenType="text/html; charset=UTF-8" PageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE html>
 <html lang="pt=br">
@@ -18,13 +18,13 @@
                     <th>Nome</th>
                     <th>&nbsp;</th>
                 </tr>
-                <c:forEach var="item" items="${plataforma}">
+                <c:forEach var="item" items="${plataformas}">
                     <tr>
                         <td>${item.id}</td>
                         <td>${item.nome}</td>
                         <td>
-                            <a href="/plataforma/update?id=${item.id}" class "btn btn-warnig">Editar</a>
-                            <a href="/plataforma/update?id=${item.id}" class "btn btn-danger">Excluir</a>
+                            <a href="/plataforma/update?id=${item.id}" class="btn btn-warnig">Editar</a>
+                            <a href="/plataforma/delete?id=${item.id}" class="btn btn-danger">Excluir</a>
                         </td>
                     </tr>
                 </c:forEach>
