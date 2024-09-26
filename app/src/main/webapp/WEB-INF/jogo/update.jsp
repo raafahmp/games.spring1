@@ -1,5 +1,5 @@
-<%@ page language="java" contetType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib uri="jakarta.tags.core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="pt-br">
     <head>
@@ -20,11 +20,12 @@
                     <label for="categoria">Categoria:</label>
                     <select name="categoria" class="form-select">
                         <c:forEach var="c" items="${categorias}">
-                            <option ${jogo.categoria.id == c.id ? "selected" : ""} value="${c.id}">
+                            <option ${jogo.categoria.id == c.id ? "selected" : ""} value="${c.id}">${c.nome}</option>
                         </c:forEach>
+                    </select>
                 </div>
-                <div class="form-group"></div>
-                    <label for="plataforma">Plataforma:</label>
+                <div class="form-group">
+                    <label for="plataforma">Plataforma(s):</label>
                     <c:forEach var="p" items="${plataformas}">
                     <div class="custom-control custom-checkbox">
                         <input type="checkbox" ${jogo.plataformas.contains(p) ? "checked" : ""}
@@ -35,7 +36,7 @@
                 </div>
                 <br />
                 <a href="/jogo/list" class="btn btn-primary">Voltar</a>
-                <button type="sugmit" class="btn btn-success">Salvar</button>
+                <button type="submit" class="btn btn-success">Salvar</button>
             </form>
         </div>    
     </body> 

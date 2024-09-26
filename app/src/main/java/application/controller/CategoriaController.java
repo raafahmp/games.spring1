@@ -19,7 +19,7 @@ public class CategoriaController {
 
     @RequestMapping("/list")
     public String list(Model ui) {
-        ui.addAttribute("categorias", categoriaRepo.findAll());
+        ui.addAttribute("categorias",categoriaRepo.findAll());
         return "categoria/list";
     }
     
@@ -57,7 +57,7 @@ public class CategoriaController {
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public String update(
         @RequestParam("id") long id,
-        @RequestParam("nome") String nome ) {
+        @RequestParam("nome") String nome) {
 
         Optional<Categoria> categoria = categoriaRepo.findById(id);
 
@@ -81,7 +81,7 @@ public class CategoriaController {
         if(categoria.isPresent()) {
             ui.addAttribute("categoria", categoria.get());
             return "categoria/delete";
-
+        
         }
 
         return "redirect:/categoria/list";

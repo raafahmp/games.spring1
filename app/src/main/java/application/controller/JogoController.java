@@ -19,7 +19,7 @@ import application.repository.PlataformaRepository;
  
 @Controller
 @RequestMapping("/jogo")
-public class JogoController {
+public class JogoController{
     @Autowired
     private JogoRepository jogoRepo;
     @Autowired
@@ -51,7 +51,7 @@ public class JogoController {
         jogo.setCategoria(categoriaRepo.findById(idCategoria).get());
         for(long p : idsPlataformas) {
             Optional<Plataforma> plataforma = plataformaRepo.findById(p);
-            if(plataforma.isPresent()) {
+            if(plataforma.isPresent()){
                 jogo.getPlataformas().add(plataforma.get());
             }
         }

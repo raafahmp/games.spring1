@@ -15,8 +15,8 @@ import application.repository.PlataformaRepository;
 @Controller
 @RequestMapping("/plataforma")
 public class PlataformaController {
-    @Autowired
-    private PlataformaRepository plataformaRepo;
+    @Autowired private
+    PlataformaRepository plataformaRepo;
 
     @RequestMapping("/list")
     public String list(Model ui) {
@@ -30,7 +30,7 @@ public class PlataformaController {
     }
 
     @RequestMapping(value = "/insert" , method = RequestMethod.POST)
-    public String insert(@RequestParam("nome") String nome) {
+    public String insert(@RequestParam("nome") String nome){
         Plataforma plataforma = new Plataforma();
         plataforma.setNome(nome);
 
@@ -46,7 +46,7 @@ public class PlataformaController {
 
         Optional<Plataforma> plataforma = plataformaRepo.findById(id);
 
-        if(plataforma.isPresent()) {
+        if(plataforma.isPresent()){
             ui.addAttribute("plataforma", plataforma.get());
             return "plataforma/update";
         }
@@ -54,12 +54,12 @@ public class PlataformaController {
         return "redirect:/plataforma/list";
     }
 
-    @RequestMapping(value = "/update", method = RequestMethod.POST) 
+    @RequestMapping(value = "/update",method=RequestMethod.POST) 
     public String update(
         @RequestParam("id") long id,
-        @RequestParam("nome") String nome ) {
+        @RequestParam("nome") String nome) {
             
-        Optional<Plataforma> plataforma = plataformaRepo.findById(id);
+        Optional<Plataforma>plataforma=plataformaRepo.findById(id);
         
         if (plataforma.isPresent()) {
              plataforma.get().setNome(nome);
@@ -75,7 +75,7 @@ public class PlataformaController {
         @RequestParam("id") long id,
         Model ui) {
             
-        Optional<Plataforma> plataforma = plataformaRepo.findById(id);
+        Optional<Plataforma>plataforma=plataformaRepo.findById(id);
         
         if (plataforma.isPresent()) {
              ui.addAttribute("plataforma", plataforma.get());
